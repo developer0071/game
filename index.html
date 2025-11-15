@@ -145,9 +145,7 @@ input[type="number"] {
         right: 12px;
     }
 }
-
 </style>
-
 </head>
 <body>
 <div class="effect"></div>
@@ -157,340 +155,69 @@ input[type="number"] {
     <button onclick="startSolo()">👤 Solo Mode</button>
     <button onclick="startGroup()">👥 Group Mode</button>
 </div>
-
 <audio id="correctSnd" src="correct.mp3"></audio>
 <audio id="wrongSnd" src="wrong.mp3"></audio>
 <audio id="clickSnd" src="click.mp3"></audio>
 <audio id="lofiMusic" src="lofi.mp3" loop></audio>
-
 <script>
 function sndClick(){ clickSnd.play(); }
 function sndCorrect(){ correctSnd.play(); }
 function sndWrong(){ wrongSnd.play(); }
-
 let lofiPlaying = false;
 function toggleLofi() {
-    if (!lofiPlaying) {
-        lofiMusic.play();
-        lofiPlaying = true;
-    } else {
-        lofiMusic.pause();
-        lofiPlaying = false;
-    }
+    if (!lofiPlaying) { lofiMusic.play(); lofiPlaying = true; } 
+    else { lofiMusic.pause(); lofiPlaying = false; }
 }
-
-const vocabularies = [
-"Wildlife conservation", "Nature reserve", "Announce", "Accountable", "Legitimate",
-"Back up", "Attorney", "Thrilled", "Sensitive", "Anticipate", "Copper mine",
-"Contaminated", "Suspect", "Praise", "Conversation", "Smile", "Important",
-"Possible", "Common interest", "Distance", "Healthy", "Musical instrument",
-"Mentality", "Conceal", "Converse", "Lift eyebrow", "Passenger", "Pretext",
-"Gossip", "Go for a stroll", "Contemplate", "Blood", "Value", "In addition to",
-"Extended family", "Disadvantage", "Attention", "Retired", "Live alone",
-"Remain with family", "Save money", "On your side", "Forever", "Maintain",
-"Expand", "Opportunities", "Remain", "Different", "Choose", "Convenience",
-"Similar", "Opinion", "Spend", "Alone", "Physical state"
-];
-
-const uzbek = {
-"Wildlife conservation":"Yovvoyi tabiatni muhofaza qilish",
-"Nature reserve":"Tabiat qo‘riqxonasi",
-"Announce":"E'lon qilmoq",
-"Accountable":"Javobgar",
-"Legitimate":"Qonuniy, asosli",
-"Back up":"Qo‘llab-quvvatlamoq",
-"Attorney":"Advokat, yurist",
-"Thrilled":"Juda hayajonlangan",
-"Sensitive":"Ta'sirchan, sezgir",
-"Anticipate":"Oldindan kutmoq",
-"Copper mine":"Mis koni",
-"Contaminated":"Ifloslangan",
-"Suspect":"Gumondor",
-"Praise":"Maqtamoq",
-"Conversation":"Suhbat",
-"Smile":"Tabassum",
-"Important":"Muhim",
-"Possible":"Mumkin",
-"Common interest":"Umumiy qiziqish",
-"Distance":"Masofa",
-"Healthy":"Sog‘lom",
-"Musical instrument":"Musiqa asbobi",
-"Mentality":"Dunyoqarash",
-"Conceal":"Yashirmoq",
-"Converse":"Suhbatlashmoq",
-"Lift eyebrow":"Qoshni ko‘tarish",
-"Passenger":"Yo‘lovchi",
-"Pretext":"Bahona",
-"Gossip":"G‘iybat",
-"Go for a stroll":"Sayrga chiqmoq",
-"Contemplate":"Mulohaza qilmoq",
-"Blood":"Qon",
-"Value":"Qadr",
-"In addition to":"...dan tashqari",
-"Extended family":"Kengaytirilgan oila",
-"Disadvantage":"Kamchilik",
-"Attention":"E’tibor",
-"Retired":"Nafaqaga chiqqan",
-"Live alone":"Yolg‘iz yashamoq",
-"Remain with family":"Oilasi bilan qolmoq",
-"Save money":"Pul tejamoq",
-"On your side":"Yonida",
-"Forever":"Abadiy",
-"Maintain":"Saqlamoq",
-"Expand":"Kengaytirmoq",
-"Opportunities":"Imkoniyatlar",
-"Remain":"Qolmoq",
-"Different":"Boshqacha",
-"Choose":"Tanlamoq",
-"Convenience":"Qulaylik",
-"Similar":"O‘xshash",
-"Opinion":"Fikr",
-"Spend":"Sarflamoq",
-"Alone":"Yolg‘iz",
-"Physical state":"Jismoniy holat"
-};
-
+const vocabularies = ["Wildlife conservation","Nature reserve","Announce","Accountable","Legitimate","Back up","Attorney","Thrilled","Sensitive","Anticipate","Copper mine","Contaminated","Suspect","Praise","Conversation","Smile","Important","Possible","Common interest","Distance","Healthy","Musical instrument","Mentality","Conceal","Converse","Lift eyebrow","Passenger","Pretext","Gossip","Go for a stroll","Contemplate","Blood","Value","In addition to","Extended family","Disadvantage","Attention","Retired","Live alone","Remain with family","Save money","On your side","Forever","Maintain","Expand","Opportunities","Remain","Different","Choose","Convenience","Similar","Opinion","Spend","Alone","Physical state"];
+const uzbek = {"Wildlife conservation":"Yovvoyi tabiatni muhofaza qilish","Nature reserve":"Tabiat qo‘riqxonasi","Announce":"E'lon qilmoq","Accountable":"Javobgar","Legitimate":"Qonuniy, asosli","Back up":"Qo‘llab-quvvatlamoq","Attorney":"Advokat, yurist","Thrilled":"Juda hayajonlangan","Sensitive":"Ta'sirchan, sezgir","Anticipate":"Oldindan kutmoq","Copper mine":"Mis koni","Contaminated":"Ifloslangan","Suspect":"Gumondor","Praise":"Maqtamoq","Conversation":"Suhbat","Smile":"Tabassum","Important":"Muhim","Possible":"Mumkin","Common interest":"Umumiy qiziqish","Distance":"Masofa","Healthy":"Sog‘lom","Musical instrument":"Musiqa asbobi","Mentality":"Dunyoqarash","Conceal":"Yashirmoq","Converse":"Suhbatlashmoq","Lift eyebrow":"Qoshni ko‘tarish","Passenger":"Yo‘lovchi","Pretext":"Bahona","Gossip":"G‘iybat","Go for a stroll":"Sayrga chiqmoq","Contemplate":"Mulohaza qilmoq","Blood":"Qon","Value":"Qadr","In addition to":"...dan tashqari","Extended family":"Kengaytirilgan oila","Disadvantage":"Kamchilik","Attention":"E’tibor","Retired":"Nafaqaga chiqqan","Live alone":"Yolg‘iz yashamoq","Remain with family":"Oilasi bilan qolmoq","Save money":"Pul tejamoq","On your side":"Yonida","Forever":"Abadiy","Maintain":"Saqlamoq","Expand":"Kengaytirmoq","Opportunities":"Imkoniyatlar","Remain":"Qolmoq","Different":"Boshqacha","Choose":"Tanlamoq","Convenience":"Qulaylik","Similar":"O‘xshash","Opinion":"Fikr","Spend":"Sarflamoq","Alone":"Yolg‘iz","Physical state":"Jismoniy holat"};
 let index = 0, correct = 0, wrong = 0, timer, mode;
-
 function backToMenu() { location.reload(); }
-
 function startSolo() {
     sndClick();
-    document.getElementById("app").innerHTML = `
-    <button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button>
-    <h2>Solo Mode</h2>
-    <button onclick="soloStart('high')">🔥 High Difficulty (Timer)</button>
-    <button onclick="soloStart('low')">🌱 Low Difficulty</button>
-    <button onclick="backToMenu()">⬅ Back</button>
-    `;
+    document.getElementById("app").innerHTML = `<button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button><h2>Solo Mode</h2><button onclick="soloStart('high')">🔥 High Difficulty (Timer)</button><button onclick="soloStart('low')">🌱 Low Difficulty</button><button onclick="backToMenu()">⬅ Back</button>`;
 }
-
 function soloStart(difficulty) {
     sndClick();
     mode = difficulty;
     index = 0; correct = 0; wrong = 0;
     nextSoloWord();
 }
-
 function nextSoloWord() {
     if (index >= vocabularies.length) return soloEnd();
-    if (timer) clearInterval(timer); // Clear previous timer
-
+    if (timer) clearInterval(timer);
     const word = vocabularies[index];
-
     if (mode === 'high') {
         let correctAnswer = uzbek[word];
-        let wrongAnswers = Object.values(uzbek).filter(v => v !== correctAnswer);
-        wrongAnswers = wrongAnswers.sort(() => 0.5 - Math.random()).slice(0, 2);
+        let wrongAnswers = Object.values(uzbek).filter(v => v !== correctAnswer).sort(() => 0.5 - Math.random()).slice(0, 2);
         let choices = [correctAnswer, ...wrongAnswers].sort(() => 0.5 - Math.random());
-
         let timeLeft = 10;
-
-        document.getElementById("app").innerHTML = `
-            <button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button>
-            <h2>Translate this:</h2>
-            <div class="word-box">${word}</div>
-            <div>⏳ Timer: <span id="time">${timeLeft}</span></div>
-            <div id="choices"></div>
-        `;
-
+        document.getElementById("app").innerHTML = `<button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button><h2>Translate this:</h2><div class="word-box">${word}</div><div>⏳ Timer: <span id="time">${timeLeft}</span></div><div id="choices"></div>`;
         const choicesDiv = document.getElementById("choices");
-        choices.forEach((c, i) => {
-            const btn = document.createElement("button");
-            btn.innerText = `${String.fromCharCode(65+i)}. ${c}`;
-            btn.addEventListener("click", () => checkChoice(c, correctAnswer));
-            choicesDiv.appendChild(btn);
-        });
-
-        timer = setInterval(() => {
-            timeLeft--;
-            document.getElementById("time").innerText = timeLeft;
-            if (timeLeft <= 0) {
-                sndWrong();
-                clearInterval(timer);
-                wrong++;
-                index++;
-                nextSoloWord();
-            }
-        }, 1000);
-
+        choices.forEach((c, i) => { const btn = document.createElement("button"); btn.innerText = `${String.fromCharCode(65+i)}. ${c}`; btn.addEventListener("click", () => checkChoice(c, correctAnswer)); choicesDiv.appendChild(btn); });
+        timer = setInterval(() => { timeLeft--; document.getElementById("time").innerText = timeLeft; if (timeLeft <= 0) { sndWrong(); clearInterval(timer); wrong++; index++; nextSoloWord(); } }, 1000);
     }
     if (mode === 'low') {
-    let correctAnswer = uzbek[word];
-    let wrongAnswers = Object.values(uzbek).filter(v => v !== correctAnswer);
-    wrongAnswers = wrongAnswers.sort(() => 0.5 - Math.random()).slice(0, 2);
-    let choices = [correctAnswer, ...wrongAnswers].sort(() => 0.5 - Math.random());
-
-    document.getElementById("app").innerHTML = `
-        <button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button>
-        <h2>Translate this:</h2>
-        <div class="word-box">${word}</div>
-        <div id="choices"></div>
-    `;
-
-    const choicesDiv = document.getElementById("choices");
-    choices.forEach((c, i) => {
-        const btn = document.createElement("button");
-        btn.innerText = `${String.fromCharCode(65+i)}. ${c}`;
-        btn.addEventListener("click", () => checkChoiceLow(c, correctAnswer));
-        choicesDiv.appendChild(btn);
-    });
+        let correctAnswer = uzbek[word];
+        let wrongAnswers = Object.values(uzbek).filter(v => v !== correctAnswer).sort(() => 0.5 - Math.random()).slice(0, 2);
+        let choices = [correctAnswer, ...wrongAnswers].sort(() => 0.5 - Math.random());
+        document.getElementById("app").innerHTML = `<button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button><h2>Translate this:</h2><div class="word-box">${word}</div><div id="choices"></div>`;
+        const choicesDiv = document.getElementById("choices");
+        choices.forEach((c, i) => { const btn = document.createElement("button"); btn.innerText = `${String.fromCharCode(65+i)}. ${c}`; btn.addEventListener("click", () => checkChoiceLow(c, correctAnswer)); choicesDiv.appendChild(btn); });
     }
-    function checkChoiceLow(selected, correctAnswer) {
-    sndClick();
-    if (selected === correctAnswer) {
-        sndCorrect();
-        correct++;
-    } else {
-        sndWrong();
-        wrong++;
-    }
-    index++;
-    nextSoloWord();
+    function checkChoiceLow(selected, correctAnswer) { sndClick(); if (selected === correctAnswer) { sndCorrect(); correct++; } else { sndWrong(); wrong++; } index++; nextSoloWord(); }
 }
-
-}
-
-function checkChoice(selected, correctAnswer) {
-    sndClick();
-    clearInterval(timer);
-    if (selected === correctAnswer) {
-        sndCorrect();
-        correct++;
-    } else {
-        sndWrong();
-        wrong++;
-    }
-    index++;
-    nextSoloWord();
-}
-
-function checkSolo() {
-    sndClick();
-    if (mode === 'high') clearInterval(timer);
-    let answer = document.getElementById("answer").value.trim();
-    if (answer) { sndCorrect(); correct++; }
-    else { sndWrong(); wrong++; }
-    index++;
-    nextSoloWord();
-}
-
-function soloEnd() {
-    let total = vocabularies.length;
-    let percent = Math.round((correct / total) * 100);
-    let msg = "";
-
-    if (percent === 100) msg = "🎉 PERFECT!";
-    else if (percent >= 90) msg = "💪 Great job!";
-    else if (percent >= 60) msg = "📝 Good effort!";
-    else if (percent === 0) msg = "😂 Bro... study?";
-    else msg = "📚 Keep practicing!";
-
-    document.getElementById("app").innerHTML = `
-        <button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button>
-        <h2>RESULT</h2>
-        <p>Correct: ${correct}</p>
-        <p>Wrong: ${wrong}</p>
-        <h3>${msg}</h3>
-        <button onclick="backToMenu()">Try Again</button>
-    `;
-}
-
-// ================= GROUP MODE ===================
-let groupScores = [];
-let groupCount = 0;
-
-function startGroup() {
-    sndClick();
-    index = 0;
-    groupSetup();
-}
-
-function groupSetup() {
-    document.getElementById("app").innerHTML = `
-        <button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button>
-        <h2>How many groups?</h2>
-        <input id="groupCount" type="number" min="2" max="10" placeholder="2-10">
-        <button onclick="createGroups()">Create groups</button>
-        <button onclick="backToMenu()">⬅ Back</button>
-    `;
-}
-
-function createGroups() {
-    sndClick();
-    groupCount = parseInt(document.getElementById("groupCount").value);
-
-    if (isNaN(groupCount) || groupCount < 2 || groupCount > 10) {
-        alert("Enter a number from 2 to 10");
-        return;
-    }
-
-    groupScores = new Array(groupCount).fill(0);
-    index = 0;
-    showGroupWord();
-}
-
-function showGroupWord() {
-    if (index >= vocabularies.length) return showWinner();
-
-    let word = vocabularies[index];
-    let answer = uzbek[word];
-
-    document.getElementById("app").innerHTML = `
-        <button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button>
-        <h2>Group Mode</h2>
-        <div class="word-box">${word}</div>
-        <button onclick="revealGroupAnswer('${answer}')">Show Answer</button>
-        <button onclick="nextGroupWord()">Skip</button>
-        <br><br>
-        <h3>Who guessed it?</h3>
-        <div class="groups">
-            ${[...Array(groupCount)].map((_, i) => `
-                <div class="groupBtn" onclick="score(${i})">Group ${i+1}</div>
-            `).join("")}
-        </div>
-    `;
-}
-
-function revealGroupAnswer(answer) {
-    sndClick();
-    const box = document.querySelector(".word-box");
-    if (!box.innerHTML.includes(answer)) {
-        box.innerHTML += `<br><br><b>${answer}</b>`;
-    }
-}
-
-function score(id) {
-    sndCorrect();
-    groupScores[id]++;
-    nextGroupWord();
-}
-
-function nextGroupWord() {
-    sndClick();
-    index++;
-    showGroupWord();
-}
-
-function showWinner() {
-    sndClick();
-    let maxScore = Math.max(...groupScores);
-    let winners = groupScores
-        .map((score, i) => score === maxScore ? `Group ${i+1}` : null)
-        .filter(Boolean);
-
-    document.getElementById("app").innerHTML = `
-        <button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button>
-        <h2>🏆 WINNER</h2>
-        <h3>${winners.join(", ")}</h3>
-        <pre>
-${groupScores.map((s,i)=>`Group ${i+1}: ${s}`).join("\n")}
-        </pre>
-        <button onclick="backToMenu()">Play Again</button>
-    `;
-}
+function checkChoice(selected, correctAnswer) { sndClick(); clearInterval(timer); if (selected === correctAnswer) { sndCorrect(); correct++; } else { sndWrong(); wrong++; } index++; nextSoloWord(); }
+function checkSolo() { sndClick(); if (mode === 'high') clearInterval(timer); let answer = document.getElementById("answer").value.trim(); if (answer) { sndCorrect(); correct++; } else { sndWrong(); wrong++; } index++; nextSoloWord(); }
+function soloEnd() { let total = vocabularies.length; let percent = Math.round((correct / total) * 100); let msg = ""; if (percent === 100) msg = "🎉 PERFECT!"; else if (percent >= 90) msg = "💪 Great job!"; else if (percent >= 60) msg = "📝 Good effort!"; else if (percent === 0) msg = "😂 Bro... study?"; else msg = "📚 Keep practicing!"; document.getElementById("app").innerHTML = `<button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button><h2>RESULT</h2><p>Correct: ${correct}</p><p>Wrong: ${wrong}</p><h3>${msg}</h3><button onclick="backToMenu()">Try Again</button>`; }
+let groupScores = []; let groupCount = 0;
+function startGroup() { sndClick(); index = 0; groupSetup(); }
+function groupSetup() { document.getElementById("app").innerHTML = `<button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button><h2>How many groups?</h2><input id="groupCount" type="number" min="2" max="10" placeholder="2-10"><button onclick="createGroups()">Create groups</button><button onclick="backToMenu()">⬅ Back</button>`; }
+function createGroups() { sndClick(); groupCount = parseInt(document.getElementById("groupCount").value); if (isNaN(groupCount) || groupCount < 2 || groupCount > 10) { alert("Enter a number from 2 to 10"); return; } groupScores = new Array(groupCount).fill(0); index = 0; showGroupWord(); }
+function showGroupWord() { if (index >= vocabularies.length) return showWinner(); let word = vocabularies[index]; let answer = uzbek[word]; document.getElementById("app").innerHTML = `<button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button><h2>Group Mode</h2><div class="word-box">${word}</div><button onclick="revealGroupAnswer('${answer}')">Show Answer</button><button onclick="nextGroupWord()">Skip</button><br><br><h3>Who guessed it?</h3><div class="groups">${[...Array(groupCount)].map((_, i) => `<div class="groupBtn" onclick="score(${i})">Group ${i+1}</div>`).join("")}</div>`; }
+function revealGroupAnswer(answer) { sndClick(); const box = document.querySelector(".word-box"); if (!box.innerHTML.includes(answer)) { box.innerHTML += `<br><br><b>${answer}</b>`; } }
+function score(id) { sndCorrect(); groupScores[id]++; nextGroupWord(); }
+function nextGroupWord() { sndClick(); index++; showGroupWord(); }
+function showWinner() { sndClick(); let maxScore = Math.max(...groupScores); let winners = groupScores.map((score, i) => score === maxScore ? `Group ${i+1}` : null).filter(Boolean); document.getElementById("app").innerHTML = `<button class="lofi-toggle" onclick="toggleLofi()">🎵 Chill Mode</button><h2>🏆 WINNER</h2><h3>${winners.join(", ")}</h3><pre>${groupScores.map((s,i)=>`Group ${i+1}: ${s}`).join("\n")}</pre><button onclick="backToMenu()">Play Again</button>`; }
 </script>
-
-
 </body>
 </html>
